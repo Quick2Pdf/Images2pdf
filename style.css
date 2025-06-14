@@ -103,3 +103,17 @@ footer {
   background: #f7f7f7;
   margin-top: 30px;
   }
+.upload-area button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.upload-area button:hover {
+  background-color: #005fa3;
+  }
