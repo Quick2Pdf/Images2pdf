@@ -70,3 +70,8 @@ async function generatePDF() {
 
   pdf.save('converted.pdf');
 }
+const { jsPDF } = window.jspdf;
+
+const pdf = new jsPDF();
+pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
+pdf.save('myfile.pdf');
