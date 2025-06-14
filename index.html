@@ -14,8 +14,9 @@
   </header>
 
   <section class="upload-area" id="dropArea">
-    <p>📤 Drag & Drop your images here or</p>
-    <input type="file" id="imageInput" accept="image/*" capture="environment" multiple>
+    <p>📤 Upload your images from Gallery or Camera</p>
+    <button onclick="document.getElementById('imageInput').click()">📁 Select Images</button>
+    <input type="file" id="imageInput" accept="image/*" multiple hidden>
   </section>
 
   <section id="imagePreview" class="image-preview"></section>
@@ -41,12 +42,7 @@
   <footer>
     <p>Made with ❤️ by Quick2PDF</p>
   </footer>
+
   <script src="script.js"></script>
 </body>
-    </html>
-<section class="upload-area" id="dropArea">
-  <p>📤 Upload Images</p>
-  <button onclick="document.getElementById('imageInput').click()">📁 Select from Gallery</button>
-  <input type="file" id="imageInput" accept="image/*"multiple
-</section>
-<input type="file" id="imageInput" accept="image/*" multiple>
+</html>
