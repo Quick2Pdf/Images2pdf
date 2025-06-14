@@ -1,52 +1,105 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
+  font-family: 'Segoe UI', sans-serif;
+  background: #f0f4f8;
   color: #333;
+  transition: background 0.3s, color 0.3s;
 }
 
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 30px;
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+body.dark {
+  background: #121212;
+  color: #f0f0f0;
+}
+
+header {
+  background: #0077cc;
+  color: white;
+  padding: 20px;
   text-align: center;
+  position: relative;
 }
 
-h1 {
-  margin-bottom: 20px;
-  color: #0077cc;
-}
-
-input[type="file"] {
-  margin: 15px 0;
-  padding: 12px;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+#darkToggle {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-button {
-  padding: 12px 25px;
-  background-color: #0077cc;
+.upload-area {
+  background: white;
+  border: 2px dashed #aaa;
+  text-align: center;
+  padding: 40px;
+  margin: 20px auto;
+  width: 80%;
+  border-radius: 10px;
+}
+
+input[type="file"] {
+  margin-top: 10px;
+}
+
+.image-preview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
+
+.preview-img {
+  position: relative;
+  margin: 10px;
+}
+
+.preview-img canvas {
+  max-width: 150px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.remove-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+}
+
+.options {
+  text-align: center;
+  margin: 20px;
+}
+
+.options select {
+  padding: 10px;
+  margin: 10px;
+}
+
+#downloadBtn {
+  display: block;
+  margin: 20px auto;
+  padding: 15px 30px;
+  background: #0077cc;
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 20px;
 }
 
-button:hover {
-  background-color: #005fa3;
-}
-
-#imagePreview img {
-  width: 140px;
-  margin: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #f7f7f7;
+  margin-top: 30px;
+  }
