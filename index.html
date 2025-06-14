@@ -41,7 +41,11 @@
   <footer>
     <p>Made with ❤️ by Quick2PDF</p>
   </footer>
-
   <script src="script.js"></script>
 </body>
     </html>
+<section class="upload-area" id="dropArea">
+  <p>📤 Upload Images</p>
+  <button onclick="document.getElementById('imageInput').click()">📁 Select from Gallery</button>
+  <input type="file" id="imageInput" accept="image/*" capture="environment" multiple hidden>
+</section>
