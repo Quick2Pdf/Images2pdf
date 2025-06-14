@@ -1,44 +1,52 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-  padding: 30px;
   margin: 0;
-  transition: background 0.3s, color 0.3s;
-}
-
-body.dark {
-  background-color: #121212;
-  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: #333;
 }
 
 .container {
-  max-width: 900px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-body.dark .container {
-  background: #1f1f1f;
+h1 {
+  margin-bottom: 20px;
+  color: #0077cc;
 }
 
-#dropArea {
-  border: 2px dashed #999;
-  padding: 20px;
-  margin: 20px 0;
-  background-color: #fafafa;
+input[type="file"] {
+  margin: 15px 0;
+  padding: 12px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
   cursor: pointer;
 }
 
-.preview-img {
-  margin: 10px;
-  display: inline-block;
+button {
+  padding: 12px 25px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-.preview-img canvas {
-  border: 1px solid #ccc;
-  max-width: 200px;
+button:hover {
+  background-color: #005fa3;
+}
+
+#imagePreview img {
+  width: 140px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
