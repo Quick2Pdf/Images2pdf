@@ -58,20 +58,20 @@ function handleFiles(files) {
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF();
+
   const canvases = document.querySelectorAll('canvas');
 
-  canvases.forEach((canvas, i) => {
+  for (let i = 0; i < canvases.length; i++) {
+    const canvas = canvases[i];
     const imgData = canvas.toDataURL('image/jpeg');
+
     if (i !== 0) pdf.addPage();
+
     const imgWidth = pdf.internal.pageSize.getWidth();
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
     pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
-  });
+  }
 
   pdf.save('converted.pdf');
-}
-const { jsPDF } = window.jspdf;
-
-const pdf = new jsPDF();
-pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
-pdf.save('myfile.pdf');
+    }
