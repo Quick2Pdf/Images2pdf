@@ -1,39 +1,20 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const input = document.getElementById("imgInput");
-  const btn = document.getElementById("convertBtn");
+// script.js const dropArea = document.getElementById('dropArea'); const imageInput = document.getElementById('imageInput'); const preview = document.getElementById('preview'); const pdfName = document.getElementById('pdfName'); const darkToggle = document.getElementById('darkToggle');
 
-  if (input && btn) {
-    btn.addEventListener("click", () => {
-      const files = input.files;
-      if (!files.length) {
-        alert("Please upload image files.");
-        return;
-      }
+let images = [];
 
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF();
+dropArea.addEventListener('dragover', (e) => { e.preventDefault(); dropArea.style.borderColor = '#007BFF'; });
 
-      let count = 0;
-      Array.from(files).forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = new Image();
-          img.onload = function () {
-            const width = pdf.internal.pageSize.getWidth();
-            const height = (img.height * width) / img.width;
+dropArea.addEventListener('dragleave', () => { dropArea.style.borderColor = '#ccc'; });
 
-            if (index > 0) pdf.addPage();
-            pdf.addImage(img, "JPEG", 0, 0, width, height);
+dropArea.addEventListener('drop', (e) => { e.preventDefault(); dropArea.style.borderColor = '#ccc'; const files = Array.from(e.dataTransfer.files); handleFiles(files); });
 
-            count++;
-            if (count === files.length) {
-              pdf.save("images.pdf");
-            }
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    });
-  }
-});
+imageInput.addEventListener('change', (e) => { const files = Array.from(e.target.files); handleFiles(files); });
+
+darkToggle.addEventListener('click', () => { document.body.classList.toggle('dark-mode'); });
+
+function handleFiles(files) { files.forEach(file => { if (file.type.startsWith('image/')) { const reader = new FileReader(); reader.onload = (e) => { const img = document.createElement('img'); img.src = e.target.result; preview.appendChild(img); images.push(e.target.result); }; reader.readAsDataURL(file); } }); }
+
+async function generatePDF() { if (images.length === 0) return alert('Please upload at least one image.'); const { jsPDF } = window.jspdf; const pdf = new jsPDF();
+
+for (let i = 0; i < images.length; i++) { const img = new Image(); img.src = images[i]; await new Promise(resolve => { img.onload = () => { const imgProps = pdf.getImageProperties(img); const pdfWidth = pdf.internal.pageSize.getWidth(); const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; if (i !== 0) pdf.addPage(); pdf.addImage(images[i], 'JPEG', 0, 0, pdfWidth, pdfHeight); resolve(); }; }); } const name = pdfName.value.trim() || 'converted'; pdf.save(${name}.pdf); }
+
