@@ -1,88 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Image to PDF Converter</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f4f6;
-      margin: 0;
-      padding: 0;
+// script.js
+const dropArea = document.getElementById('dropArea');
+const imageInput = document.getElementById('imageInput');
+const preview = document.getElementById('preview');
+const pdfName = document.getElementById('pdfName');
+const darkToggle = document.getElementById('darkToggle');
+
+let images = [];
+
+dropArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropArea.style.borderColor = '#007BFF';
+});
+
+dropArea.addEventListener('dragleave', () => {
+  dropArea.style.borderColor = '#ccc';
+});
+
+dropArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropArea.style.borderColor = '#ccc';
+  const files = Array.from(e.dataTransfer.files);
+  handleFiles(files);
+});
+
+imageInput.addEventListener('change', (e) => {
+  const files = Array.from(e.target.files);
+  handleFiles(files);
+});
+
+darkToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+function handleFiles(files) {
+  files.forEach(file => {
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        preview.appendChild(img);
+        images.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      color: #4f46e5;
-    }
-    input[type="file"], button {
-      padding: 10px;
-      margin: 10px 0;
-    }
-    button {
-      background-color: #4f46e5;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
-<body>
-  <div class="container">
-    <h1>Image to PDF Converter</h1>
-    <input type="file" id="imgInput" multiple accept="image/*"><br>
-    <button id="convertBtn">Convert to PDF</button>
-  </div>
+  });
+}
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const input = document.getElementById("imgInput");
-      const btn = document.getElementById("convertBtn");
+async function generatePDF() {
+  if (images.length === 0) return alert('Please upload at least one image.');
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
 
-      if (input && btn) {
-        btn.addEventListener("click", () => {
-          const files = input.files;
-          if (!files.length) {
-            alert("Please upload image files.");
-            return;
-          }
-
-          const { jsPDF } = window.jspdf;
-          const pdf = new jsPDF();
-
-          let count = 0;
-          Array.from(files).forEach((file, index) => {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              const img = new Image();
-              img.onload = function () {
-                const width = pdf.internal.pageSize.getWidth();
-                const height = (img.height * width) / img.width;
-
-                if (index > 0) pdf.addPage();
-                pdf.addImage(img, "JPEG", 0, 0, width, height);
-
-                count++;
-                if (count === files.length) {
-                  pdf.save("images.pdf");
-                }
-              };
-              img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-          });
-        });
-      }
+  for (let i = 0; i < images.length; i++) {
+    const img = new Image();
+    img.src = images[i];
+    await new Promise(resolve => {
+      img.onload = () => {
+        const imgProps = pdf.getImageProperties(img);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        if (i !== 0) pdf.addPage();
+        pdf.addImage(images[i], 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        resolve();
+      };
     });
-  </script>
-</body>
-</html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  }
+  const name = pdfName.value.trim() || 'converted';
+  pdf.save(`${name}.pdf`);
+}
