@@ -1,55 +1,67 @@
-function toggleDarkMode() {
-  document.body.classList.toggle("dark");
-}
+<script>
+  let images = [];
 
-const preview = document.getElementById("preview");
-const imageInput = document.getElementById("imageInput");
-let images = [];
-
-imageInput.addEventListener("change", function () {
-  preview.innerHTML = "";
-  images = [...this.files];
-  images.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const img = document.createElement("img");
-      img.src = e.target.result;
-      preview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
+  document.getElementById('imageUpload').addEventListener('change', function (e) {
+    images = Array.from(e.target.files);
+    previewImages();
   });
-});
 
-async function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF();
-  for (let i = 0; i < images.length; i++) {
-    const img = await loadImage(images[i]);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0);
-    const imgData = canvas.toDataURL("image/jpeg", 1.0);
-    if (i > 0) pdf.addPage();
-    pdf.addImage(imgData, 'JPEG', 10, 10, 190, 0);
+  function previewImages() {
+    const previewArea = document.getElementById('preview');
+    previewArea.innerHTML = '';
+    images.forEach(img => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgEl = document.createElement('img');
+        imgEl.src = e.target.result;
+        imgEl.style.width = "150px";
+        imgEl.style.margin = "10px";
+        imgEl.style.borderRadius = "10px";
+        previewArea.appendChild(imgEl);
+      }
+      reader.readAsDataURL(img);
+    });
   }
-  const name = document.getElementById("pdfName").value || "Quick2PDF_Document.pdf";
-  pdf.save(name);
-}
 
-function loadImage(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
+  async function generatePDF() {
+    if (images.length === 0) {
+      alert("Please upload images first.");
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+
+    for (let i = 0; i < images.length; i++) {
+      const imgData = await toBase64(images[i]);
       const img = new Image();
-      img.onload = () => resolve(img);
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
+      img.src = imgData;
+      await new Promise(resolve => {
+        img.onload = () => {
+          const width = pdf.internal.pageSize.getWidth();
+          const height = (img.height * width) / img.width;
+          if (i !== 0) pdf.addPage();
+          pdf.addImage(img, 'JPEG', 0, 0, width, height);
+          resolve();
+        };
+      });
+    }
 
-function scrollToFeatures() {
-  document.getElementById(\"features\").scrollIntoView({ behavior: 'smooth' });
+    const name = document.getElementById('renamePdf').value || 'converted';
+    pdf.save(`${name}.pdf`);
   }
+
+  function toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Dark Mode Toggle
+  document.getElementById("darkModeToggle").addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+  });
+</script>
