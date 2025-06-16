@@ -2,43 +2,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Convert images to PDF online for free. Secure, fast, and easy image-to-PDF tool with drag-and-drop, preview, rename, and more features.">
-  <meta name="keywords" content="Image to PDF, Free PDF Converter, Online PDF Tool, Convert Images, JPG to PDF">
-  <meta name="author" content="Quick2PDF">
-  <title>Image to PDF Converter - Quick2PDF</title>
+  <title>Quick2PDF - Image to PDF Converter</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Quick2PDF - Image to PDF Converter</h1>
-    <button id="darkToggle">Toggle Dark Mode</button>
-  </header>  <main>
-    <section>
-      <h2>Convert Your Images to PDF</h2>
-      <p>Upload multiple images, preview them, and convert to a single PDF file.</p>
-    </section><section id="dropArea">
-  <p>Drag & Drop Images Here or</p>
-  <input type="file" id="imageInput" accept="image/*" multiple />
-</section>
+  <h1>Quick2PDF - Image to PDF Converter</h1>
+  <button id="toggleDark" onclick="toggleDarkMode()">Toggle Dark Mode</button>  <h2>Convert Your Images to PDF</h2>
+  <p>Upload multiple images, preview them, and convert to a single PDF file.</p>  <div id="drop-area">
+    <p>Drag & Drop Images Here or</p>
+    <input type="file" id="images" accept="image/*" multiple />
+  </div>  <div id="preview"></div><label for="pdfName">Rename PDF:</label> <input type="text" id="pdfName" placeholder="Enter PDF name (optional)" /> <button onclick="convertToPDF()">Convert to PDF</button>
 
-<section>
-  <label for="pdfName">Rename PDF:</label>
-  <input type="text" id="pdfName" placeholder="Enter PDF name (optional)" />
-  <button onclick="generatePDF()">Convert to PDF</button>
-</section>
-
-<section id="preview">
-  <!-- Image previews will appear here -->
-</section>
-
-  </main>  <footer>
+  <footer>
     <p>&copy; 2025 Quick2PDF. All rights reserved.</p>
-    <div>
-      <a href="#">About</a> | 
-      <a href="#">Contact</a> | 
-      <a href="#">FAQ</a> | 
-      <a href="#">Privacy</a>
-    </div>
+    <a href="#">About</a> |
+    <a href="#">Contact</a> |
+    <a href="#">FAQ</a> |
+    <a href="#">Privacy</a>
   </footer>  <script src="script.js"></script></body>
-  </html>
+</html>
