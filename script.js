@@ -1,20 +1,69 @@
-// script.js const dropArea = document.getElementById('dropArea'); const imageInput = document.getElementById('imageInput'); const preview = document.getElementById('preview'); const pdfName = document.getElementById('pdfName'); const darkToggle = document.getElementById('darkToggle');
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-let images = [];
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
 
-dropArea.addEventListener('dragover', (e) => { e.preventDefault(); dropArea.style.borderColor = '#007BFF'; });
+#drop-area {
+  border: 2px dashed #aaa;
+  padding: 30px;
+  margin: 20px auto;
+  width: 80%;
+  background: #fff;
+  border-radius: 10px;
+}
 
-dropArea.addEventListener('dragleave', () => { dropArea.style.borderColor = '#ccc'; });
+#drop-area.dragover {
+  border-color: #333;
+  background-color: #f0f0f0;
+}
 
-dropArea.addEventListener('drop', (e) => { e.preventDefault(); dropArea.style.borderColor = '#ccc'; const files = Array.from(e.dataTransfer.files); handleFiles(files); });
+#images {
+  margin-top: 10px;
+}
 
-imageInput.addEventListener('change', (e) => { const files = Array.from(e.target.files); handleFiles(files); });
+#preview img {
+  max-width: 150px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
 
-darkToggle.addEventListener('click', () => { document.body.classList.toggle('dark-mode'); });
+footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+}
 
-function handleFiles(files) { files.forEach(file => { if (file.type.startsWith('image/')) { const reader = new FileReader(); reader.onload = (e) => { const img = document.createElement('img'); img.src = e.target.result; preview.appendChild(img); images.push(e.target.result); }; reader.readAsDataURL(file); } }); }
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-async function generatePDF() { if (images.length === 0) return alert('Please upload at least one image.'); const { jsPDF } = window.jspdf; const pdf = new jsPDF();
+input[type=\"text\"] {
+  padding: 8px;
+  width: 60%;
+  max-width: 300px;
+  margin: 10px 0;
+}
 
-for (let i = 0; i < images.length; i++) { const img = new Image(); img.src = images[i]; await new Promise(resolve => { img.onload = () => { const imgProps = pdf.getImageProperties(img); const pdfWidth = pdf.internal.pageSize.getWidth(); const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; if (i !== 0) pdf.addPage(); pdf.addImage(images[i], 'JPEG', 0, 0, pdfWidth, pdfHeight); resolve(); }; }); } const name = pdfName.value.trim() || 'converted'; pdf.save(${name}.pdf); }
+.dark-mode {
+  background-color: #121212;
+  color: #f4f4f4;
+}
 
+.dark-mode #drop-area {
+  background-color: #222;
+  border-color: #555;
+}
