@@ -1,115 +1,59 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f9fafb;
-  color: #111827;
-  margin: 0;
-  padding: 0;
-}
-.dark {
-  background: #111827;
-  color: #f9fafb;
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-.dark-toggle {
-  background: #374151;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-}
-.hero {
-  text-align: center;
-  padding: 2rem 1rem;
-}
-.upload-section {
-  margin-top: 1rem;
-}
-.convert-btn {
-  background: #2563eb;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-.preview-container {
+.button-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 12px;
   justify-content: center;
-  padding: 1rem;
+  margin: 25px 0;
 }
-.preview-container img {
-  width: 150px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.rename-share {
-  text-align: center;
-  padding: 1rem;
-}
-.rename-share input {
-  width: 80%;
-  padding: 0.5rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-.share-buttons a {
-  display: inline-block;
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+
+.btn {
+  background-color: #3498db;
   color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
   text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-.fb-share { background: #3b5998; }
-.wa-share { background: #25d366; }
-.features-button {
-  text-align: center;
-  margin: 2rem 0;
+
+.btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
 }
-.feature-btn {
-  background: #10b981;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  font-weight: bold;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-}
-.footer {
-  background: #f1f5f9;
-  padding: 2rem;
-}
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-}
-.footer form input, .footer form textarea {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 8px;
+
+.input-text {
+  padding: 10px 20px;
+  border-radius: 50px;
   border: 1px solid #ccc;
+  width: 220px;
+  font-size: 16px;
 }
-.footer form button {
-  background: #2563eb;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  }
+
+.success {
+  background-color: #27ae60;
+}
+
+.success:hover {
+  background-color: #219150;
+}
+
+.dark {
+  background-color: #555;
+}
+
+.dark:hover {
+  background-color: #333;
+}
+
+.share .btn {
+  background-color: #f39c12;
+}
+
+.share .btn:hover {
+  background-color: #d78c0c;
+}
