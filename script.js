@@ -66,4 +66,4 @@ input[type=\"text\"] {
 .dark-mode #drop-area {
   background-color: #222;
   border-color: #555;
-}
+    }
