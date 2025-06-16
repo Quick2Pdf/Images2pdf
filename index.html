@@ -1,24 +1,58 @@
-<!DOCTYPE html><html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quick2PDF - Image to PDF Converter</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Convert images to PDF quickly and easily with Quick2PDF. Fast, free, and secure." />
+  <title>Quick2PDF - Convert Images to PDF</title>
+  <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
-<body>
-  <h1>Quick2PDF - Image to PDF Converter</h1>
-  <button id="toggleDark" onclick="toggleDarkMode()">Toggle Dark Mode</button>  <h2>Convert Your Images to PDF</h2>
-  <p>Upload multiple images, preview them, and convert to a single PDF file.</p>  <div id="drop-area">
-    <p>Drag & Drop Images Here or</p>
-    <input type="file" id="images" accept="image/*" multiple />
-  </div>  <div id="preview"></div><label for="pdfName">Rename PDF:</label> <input type="text" id="pdfName" placeholder="Enter PDF name (optional)" /> <button onclick="convertToPDF()">Convert to PDF</button>
-
-  <footer>
+</head><body>
+  <!-- Header -->
+  <header class="header">
+    <h1 class="logo">Quick2PDF</h1>
+    <button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
+  </header>  <!-- Hero Section -->  <section class="hero">
+    <h2>Convert Images to PDF Instantly</h2>
+    <p>Upload, arrange, and download your images as a single PDF file. 100% free and secure!</p>
+    <div class="upload-section">
+      <input type="file" id="imageInput" accept="image/*" multiple />
+      <button onclick="generatePDF()" class="convert-btn">Download PDF</button>
+    </div>
+  </section>  <!-- Preview Section -->  <section class="preview-container" id="preview"></section>  <!-- Rename and Social Sharing -->  <section class="rename-share">
+    <input id="pdfName" type="text" placeholder="Enter PDF name (optional)" />
+    <div class="share-buttons">
+      <a href="#" class="fb-share">Share on Facebook</a>
+      <a href="#" class="wa-share">Share on WhatsApp</a>
+    </div>
+  </section>  <!-- Features Button -->  <section class="features-button">
+    <button onclick="scrollToFeatures()" class="feature-btn">🔍 View Features</button>
+  </section>  <!-- About, Features, FAQ, Contact -->  <footer class="footer" id="features">
+    <div class="footer-grid">
+      <div>
+        <h3>About</h3>
+        <p>Quick2PDF helps users easily convert images into PDFs on any device. Free, fast, and simple.</p>
+      </div>
+      <div>
+        <h3>Features</h3>
+        <ul>
+          <li>Multi-image to PDF</li>
+          <li>Drag & drop</li>
+          <li>Rename PDF</li>
+          <li>Dark mode</li>
+        </ul>
+      </div>
+      <div>
+        <h3>FAQs</h3>
+        <p>Q: Is it free to use?<br />A: Yes, 100% free and safe.</p>
+        <p>Q: Are my files saved?<br />A: No, everything runs in your browser.</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <form action="https://formsubmit.co/s240058743@gmail.com" method="POST">
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea name="message" placeholder="Your Message" required></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
     <p>&copy; 2025 Quick2PDF. All rights reserved.</p>
-    <a href="#">About</a> |
-    <a href="#">Contact</a> |
-    <a href="#">FAQ</a> |
-    <a href="#">Privacy</a>
-  </footer>  <script src="script.js"></script></body>
-</html>
+  </footer>  <script src="script.js"></script></body></html>
